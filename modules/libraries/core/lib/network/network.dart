@@ -1,0 +1,1 @@
+export 'foodtruckz_service.dart';

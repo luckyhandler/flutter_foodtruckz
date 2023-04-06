@@ -1,0 +1,21 @@
+name: foodtruck_details
+description: Displays detail info to each foodtruck
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=2.19.5 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # modules
+  core:
+    path: ../../libraries/core
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
