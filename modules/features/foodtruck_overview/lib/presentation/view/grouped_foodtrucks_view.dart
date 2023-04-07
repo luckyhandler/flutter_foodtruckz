@@ -5,9 +5,11 @@ class GroupedFoodtrucksView extends StatelessWidget {
   const GroupedFoodtrucksView({
     Key? key,
     required this.foodtrucksByDay,
+    required this.onItemTap,
   }) : super(key: key);
 
   final Map<DateTime, List<Foodtruck>> foodtrucksByDay;
+  final Function(Foodtruck) onItemTap;
 
   @override
   Widget build(BuildContext context) => ListView.builder(
@@ -36,6 +38,7 @@ class GroupedFoodtrucksView extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
+                          onTap: () => onItemTap(foodtrucks[index]),
                           leading: foodtrucks[index].logo == null
                               ? Image.asset(
                                   'assets/icons/logo.png',

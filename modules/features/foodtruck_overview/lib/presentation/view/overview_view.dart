@@ -9,9 +9,11 @@ class OverviewView extends StatelessWidget {
   const OverviewView({
     Key? key,
     required this.location,
+    required this.onItemTap,
   }) : super(key: key);
 
   final LocationData? location;
+  final Function(Foodtruck) onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,10 @@ class OverviewView extends StatelessWidget {
         } else {
           final foodtrucks =
               state is OnOverviewSuccess ? state.foodtrucksByDay : null;
-          return SuccessView(foodtrucksByDay: foodtrucks ?? Map.identity());
+          return SuccessView(
+            foodtrucksByDay: foodtrucks ?? Map.identity(),
+            onItemTap: onItemTap,
+          );
         }
       },
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodtruck_details/foodtruck_details.dart';
 import 'package:foodtruck_overview/foodtruck_overview.dart';
 
 void main() {
@@ -30,6 +31,16 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(title)),
-        body: OverviewPage());
+        body: OverviewPage(
+          onItemTap: (foodtruck) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => FoodtruckDetailsScreen(
+                  foodtruck: foodtruck,
+                ),
+              ),
+            );
+          },
+        ));
   }
 }

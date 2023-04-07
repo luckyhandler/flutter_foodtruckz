@@ -7,9 +7,11 @@ import 'overview_view.dart';
 class OverviewPage extends StatelessWidget {
   OverviewPage({
     Key? key,
+    required this.onItemTap,
   }) : super(key: key);
 
   final FoodtruckzRepository repository = FoodtruckzRepositoryImpl();
+  final Function(Foodtruck) onItemTap;
 
   @override
   Widget build(BuildContext context) => BlocProvider(
@@ -46,7 +48,7 @@ class OverviewPage extends StatelessWidget {
                         59,
                       ),
                     ));
-                return OverviewView(location: location);
+                return OverviewView(location: location, onItemTap: onItemTap);
             }
           },
         ),
