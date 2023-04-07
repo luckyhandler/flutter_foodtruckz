@@ -16,7 +16,7 @@ abstract class FoodtruckzService {
     @rf.Header("Authorization") required String auth,
     @rf.Query("longitude") required double longitude,
     @rf.Query("latitude") required double latitude,
-    @rf.Query("rd") String rd = "2",
+    @rf.Query("rd") String rd = "10",
     @rf.Query("version") String version = "2",
   });
 }

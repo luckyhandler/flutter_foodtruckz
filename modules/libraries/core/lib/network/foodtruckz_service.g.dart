@@ -25,7 +25,7 @@ class _FoodtruckzService implements FoodtruckzService {
     required auth,
     required longitude,
     required latitude,
-    rd = "2",
+    rd = "10",
     version = "2",
   }) async {
     const _extra = <String, dynamic>{};
