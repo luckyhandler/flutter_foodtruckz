@@ -8,17 +8,25 @@ class SuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: foodtrucks.length,
-      itemBuilder: (context, index) => ListTile(
-        leading: Image.asset('assets/icons/logo.png'),
-        title: Text(
-          foodtrucks[index].name,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        subtitle: Text(foodtrucks[index].description),
-        isThreeLine: true,
-      ),
-    );
+    return foodtrucks.isEmpty
+        ? ListTile(
+            leading: Image.asset('assets/icons/logo.png', package: 'foodtruck_overview'),
+            title: Text(
+              'No foodtrucks found for your search.',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          )
+        : ListView.builder(
+            itemCount: foodtrucks.length,
+            itemBuilder: (context, index) => ListTile(
+              leading: Image.asset('assets/icons/logo.png', package: 'foodtruck_overview'),
+              title: Text(
+                foodtrucks[index].name,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              subtitle: Text(foodtrucks[index].description),
+              isThreeLine: true,
+            ),
+          );
   }
 }
