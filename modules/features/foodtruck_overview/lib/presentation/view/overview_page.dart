@@ -40,7 +40,7 @@ class OverviewPage extends StatelessWidget {
                       endDate: DateTime(
                         now.year,
                         now.month,
-                        now.day + 1,
+                        now.day + 7,
                         23,
                         59,
                         59,

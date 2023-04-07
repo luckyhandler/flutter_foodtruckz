@@ -14,10 +14,10 @@ class OnOverviewLoading extends OverviewState {}
 class OnOverviewError extends OverviewState {}
 
 class OnOverviewSuccess extends OverviewState {
-  const OnOverviewSuccess({required this.foodtrucks});
+  const OnOverviewSuccess({required this.foodtrucksByDay});
 
-  final List<Foodtruck> foodtrucks;
+  final Map<DateTime, List<Foodtruck>> foodtrucksByDay;
 
   @override
-  List<Object> get props => [foodtrucks];
+  List<Object> get props => [foodtrucksByDay];
 }

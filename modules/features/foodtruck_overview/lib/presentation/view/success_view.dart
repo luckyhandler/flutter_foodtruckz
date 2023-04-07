@@ -1,38 +1,19 @@
-import 'package:core/data/entity/entity.dart';
+import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:foodtruck_overview/presentation/view/empty_view.dart';
+
+import 'grouped_foodtrucks_view.dart';
 
 class SuccessView extends StatelessWidget {
-  const SuccessView({Key? key, required this.foodtrucks}) : super(key: key);
+  const SuccessView({Key? key, required this.foodtrucksByDay})
+      : super(key: key);
 
-  final List<Foodtruck> foodtrucks;
+  final Map<DateTime, List<Foodtruck>> foodtrucksByDay;
 
   @override
   Widget build(BuildContext context) {
-    return foodtrucks.isEmpty
-        ? ListTile(
-            leading: Image.asset(
-              'assets/icons/logo.png',
-              package: 'foodtruck_overview',
-            ),
-            title: Text(
-              'No foodtrucks found for your search.',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          )
-        : ListView.builder(
-            itemCount: foodtrucks.length,
-            itemBuilder: (context, index) => ListTile(
-              leading: Image.asset(
-                'assets/icons/logo.png',
-                package: 'foodtruck_overview',
-              ),
-              title: Text(
-                foodtrucks[index].name,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              subtitle: Text(foodtrucks[index].description),
-              isThreeLine: true,
-            ),
-          );
+    return foodtrucksByDay.isEmpty
+        ? const EmptyView()
+        : GroupedFoodtrucksView(foodtrucksByDay: foodtrucksByDay);
   }
 }

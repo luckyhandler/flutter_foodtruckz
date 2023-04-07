@@ -53,9 +53,10 @@ class FoodtruckzRepositoryImpl extends FoodtruckzRepository {
 
     return foodtruckz
         .toFoodtruckEntities()
+        .whereType<Foodtruck>()
         .where((foodtruck) =>
-            foodtruck.time.isAfter(startDate) &&
-            foodtruck.time.isBefore(endDate))
+            foodtruck.timeStart.isAfter(startDate) &&
+            foodtruck.timeStart.isBefore(endDate))
         .toList();
   }
 }
@@ -77,7 +78,7 @@ requestInterceptor(RequestOptions options, RequestInterceptorHandler handler) {
 }
 
 extension FoodtruckzExtensions on Foodtruckz {
-  Iterable<Foodtruck> toFoodtruckEntities() {
+  Iterable<Foodtruck?> toFoodtruckEntities() {
     final tours = this
             .tours
             ?.whereType<ToursItem>()
@@ -86,15 +87,28 @@ extension FoodtruckzExtensions on Foodtruckz {
     final operators = this.operators;
 
     return tours.mapIndexed((index, toursItem) {
-      return Foodtruck(
-        name: operators?[index]?.name ?? '',
-        description: operators?[index]?.description ?? '',
-        location:
-            "${toursItem.location?.name}\n${toursItem.location?.zipcode} ${toursItem.location?.city}, \n${toursItem.location?.street} ${toursItem.location?.number}",
-        time: DateTime.parse(toursItem.start!),
-        url: operators?[index]?.name_url ?? '',
-        logo: operators?[index]?.logo,
-      );
+      try {
+        return Foodtruck(
+          name: operators?[index]?.name ?? '',
+          description: operators?[index]?.description ?? '',
+          location: FoodtruckLocation(
+            name: toursItem.location?.name,
+            city: toursItem.location?.city,
+            number: toursItem.location?.number,
+            street: toursItem.location?.street,
+            zipcode: toursItem.location?.zipcode,
+          ),
+          timeStart: DateTime.parse(
+              toursItem.start!.substring(0, toursItem.start!.indexOf('+'))),
+          timeEnd: DateTime.parse(
+              toursItem.end!.substring(0, toursItem.end!.indexOf('+'))),
+          url: operators?[index]?.name_url ?? '',
+          logo: operators?[index]?.logo,
+        );
+      } on Exception catch (e) {
+        Fimber.e('error while parsing foodtruckz item', ex: e);
+        return null;
+      }
     });
   }
 }

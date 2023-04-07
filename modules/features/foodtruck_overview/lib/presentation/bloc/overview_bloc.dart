@@ -31,7 +31,10 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
         startDate: event.startDate,
         endDate: event.endDate,
       );
-      emit(OnOverviewSuccess(foodtrucks: foodtrucks));
+
+      final groupedByDate =
+          foodtrucks.groupListsBy((element) => element.timeStart);
+      emit(OnOverviewSuccess(foodtrucksByDay: groupedByDate));
     } on Exception catch (e, s) {
       Fimber.e('error while retrieving foodtruckz.', ex: e, stacktrace: s);
       emit(OnOverviewError());

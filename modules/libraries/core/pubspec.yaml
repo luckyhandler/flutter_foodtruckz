@@ -32,6 +32,9 @@ dependencies:
   # collection
   collection: ^1.17.0
 
+  # localization
+  intl: ^0.18.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

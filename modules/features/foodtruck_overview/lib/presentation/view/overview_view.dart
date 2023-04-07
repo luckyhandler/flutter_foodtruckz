@@ -7,8 +7,8 @@ import 'success_view.dart';
 
 class OverviewView extends StatelessWidget {
   const OverviewView({
-    required this.location,
     Key? key,
+    required this.location,
   }) : super(key: key);
 
   final LocationData? location;
@@ -17,17 +17,18 @@ class OverviewView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OverviewBloc, OverviewState>(
       builder: (context, state) {
+        final initial = state is OverviewInitial;
         final loading = state is OnOverviewLoading;
         final error = state is OnOverviewError;
 
-        if (loading) {
+        if (loading || initial) {
           return const Center(child: CircularProgressIndicator());
         } else if (error) {
           return const ErrorView();
         } else {
           final foodtrucks =
-              state is OnOverviewSuccess ? state.foodtrucks : <Foodtruck>[];
-          return SuccessView(foodtrucks: foodtrucks);
+              state is OnOverviewSuccess ? state.foodtrucksByDay : null;
+          return SuccessView(foodtrucksByDay: foodtrucks ?? Map.identity());
         }
       },
     );
