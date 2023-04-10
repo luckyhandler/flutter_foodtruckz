@@ -1,0 +1,7 @@
+dev_dependencies:
+  flutter_launcher_icons: "^0.13.0"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "modules/features/foodtruck_overview/assets/icons/logo.png"

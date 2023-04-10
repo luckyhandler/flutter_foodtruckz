@@ -1,4 +1,4 @@
-name: flutter_foodtruckz
+name: foodtruckz
 description: Displays foodtrucks in Nuremberg for the current user location
 publish_to: 'none'
 
@@ -25,6 +25,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  flutter_launcher_icons: "^0.13.0"
 
 flutter:
   uses-material-design: true
