@@ -1,0 +1,101 @@
+name: foodtruck_details
+
+packages:
+  - .
+  - modules/features/*
+  - modules/libraries/*
+
+scripts:
+  analyze:
+    exec: dart analyze --fatal-infos .
+    description: Run `dart analyze` in selected or all packages.
+    packageFilters:
+      dirExists:
+        - lib
+
+  fix:
+    exec: dart fix --dry-run && dart fix --apply .
+    description: Run `dart fix` in selected or all packages.
+    packageFilters:
+      dirExists:
+        - lib
+
+  test:
+    exec: flutter test
+    description: Run `flutter test` in a selected package.
+    packageFilters:
+      dirExists:
+        - test
+
+  pub:get:
+    exec: flutter pub get
+    description: Run `flutter pub get` in selected or all packages.
+    packageFilters:
+      dirExists:
+        - lib
+
+  pub:upgrade:
+    exec: dart pub upgrade
+    description: Run `dart pub upgrade` in selected or all packages.
+    packageFilters:
+      dirExists:
+        - lib
+
+  # You might need to run `dart run build_runner clean` when having problems with the secrets
+  build_runner:
+    exec: dart run build_runner build --delete-conflicting-outputs
+    description: Run `dart run build_runner build --delete-conflicting-outputs` in selected or all packages.
+    packageFilters:
+      dependsOn: "build_runner"
+
+  build_ios_dev:
+    run: |
+      source ./set-environment-variables.sh
+      cd ios
+      bundle install
+      bundle exec fastlane update_plugins
+      bundle exec fastlane betaappdev --env appdev
+      cd ..
+    description: Build dev version for ios and upload to firebase app distribution.
+
+  build_android_dev:
+    run: |
+      source ./set-environment-variables.sh
+      cd android
+      bundle install
+      bundle exec fastlane update_plugins
+      bundle exec fastlane deployAppDev
+      cd ..
+    description: Build dev version for android and upload to firebase app distribution.
+
+  build_devs:
+    run: |
+      melos run build_ios_dev
+      melos run build_android_dev
+    description: Build dev versions for ios and android and upload to firebase app distribution.
+
+  build_ios_prod:
+    run: |
+      source ./set-environment-variables.sh
+      cd ios
+      bundle install
+      bundle exec fastlane update_plugins
+      bundle exec fastlane betaapp --env app
+      cd ..
+    description: Build prod version for ios and upload to testflight.
+
+  build_android_prod:
+    run: |
+      source ./set-environment-variables.sh
+      cd android
+      bundle install
+      bundle exec fastlane update_plugins
+      bundle exec fastlane deployApp
+      cd ..
+    description: Build prod version for android and upload to Play Store.
+
+  ci:analyze:
+    run: |
+      melos run analyze --no-select
+      melos run test --no-select
+    description: Run all tests available.

@@ -10,7 +10,8 @@ class FoodtruckDetailsView extends StatelessWidget {
   final Foodtruck foodtruck;
 
   @override
-  Widget build(BuildContext context) => ListView(
+  Widget build(BuildContext context) {
+    return ListView(
         children: [
           foodtruck.logo == null
               ? Image.asset(
@@ -26,4 +27,5 @@ class FoodtruckDetailsView extends StatelessWidget {
           const SizedBox(height: 16),
         ],
       );
+  }
 }

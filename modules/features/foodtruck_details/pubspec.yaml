@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  melos: any
+
   # modules
   core:
     path: ../../libraries/core
