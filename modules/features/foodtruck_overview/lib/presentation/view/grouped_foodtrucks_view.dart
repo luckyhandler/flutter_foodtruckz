@@ -44,7 +44,10 @@ class GroupedFoodtrucksView extends StatelessWidget {
                                   'assets/icons/logo.png',
                                   package: 'foodtruck_overview',
                                 )
-                              : Image.network(foodtrucks[index].logo!),
+                              : Hero(
+                                  tag: foodtrucks[index].logo!,
+                                  child:
+                                      Image.network(foodtrucks[index].logo!)),
                           title: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

@@ -30,7 +30,7 @@ dependencies:
   location: ^4.4.0
 
   # collection
-  collection: ^1.17.0
+  collection: ^1.18.0
 
   # localization
   intl: ^0.18.0

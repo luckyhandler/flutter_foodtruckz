@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 
 part 'overview_event.dart';
-
 part 'overview_state.dart';
 
 class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
