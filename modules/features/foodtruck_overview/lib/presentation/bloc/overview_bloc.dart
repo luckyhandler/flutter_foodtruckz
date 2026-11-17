@@ -11,7 +11,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
 
   final FoodtruckzRepository repository;
 
-  _getFoodtruckz(
+  Future<void> _getFoodtruckz(
     GetFoodtruckz event,
     Emitter<OverviewState> emit,
   ) async {
@@ -22,6 +22,7 @@ class OverviewBloc extends Bloc<OverviewEvent, OverviewState> {
 
     if (latitude == null || longitude == null) {
       emit(OnOverviewError());
+      return;
     }
 
     try {

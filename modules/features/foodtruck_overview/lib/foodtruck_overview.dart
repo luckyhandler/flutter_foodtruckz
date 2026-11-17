@@ -1,3 +1,3 @@
-library foodtruck_overview;
+library;
 
 export 'presentation/presentation.dart';

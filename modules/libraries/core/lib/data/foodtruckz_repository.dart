@@ -12,8 +12,8 @@ import 'keys.dart';
 
 abstract class FoodtruckzRepository {
   Future<List<Foodtruck>> getFoodtruckz({
-    required longitude,
-    required latitude,
+    required double longitude,
+    required double latitude,
     required DateTime startDate,
     required DateTime endDate,
   });
@@ -61,18 +61,18 @@ class FoodtruckzRepositoryImpl extends FoodtruckzRepository {
   }
 }
 
-errorInterceptor(DioError dioError, ErrorInterceptorHandler handler) {
+void errorInterceptor(DioException dioError, ErrorInterceptorHandler handler) {
   Fimber.e('Dio: ${dioError.message}');
   handler.reject(dioError);
 }
 
-responseInterceptor(
+void responseInterceptor(
     Response<dynamic> response, ResponseInterceptorHandler handler) {
   Fimber.d('Dio: ${response.toString()}');
   handler.resolve(response);
 }
 
-requestInterceptor(RequestOptions options, RequestInterceptorHandler handler) {
+void requestInterceptor(RequestOptions options, RequestInterceptorHandler handler) {
   Fimber.d('Dio: ${options.toString()}');
   handler.next(options);
 }
@@ -102,7 +102,7 @@ extension FoodtruckzExtensions on Foodtruckz {
               toursItem.start!.substring(0, toursItem.start!.indexOf('+'))),
           timeEnd: DateTime.parse(
               toursItem.end!.substring(0, toursItem.end!.indexOf('+'))),
-          url: operators?[index]?.name_url ?? '',
+          url: operators?[index]?.nameUrl ?? '',
           logo: operators?[index]?.logo,
         );
       } on Exception catch (e) {

@@ -1,13 +1,12 @@
 import 'package:core/core.dart';
-import 'package:flutter/material.dart';
 
 import 'foodtruck_details_view.dart';
 
 class FoodtruckDetailsPage extends StatelessWidget {
   const FoodtruckDetailsPage({
-    Key? key,
+    super.key,
     required this.foodtruck,
-  }) : super(key: key);
+  });
 
   final Foodtruck foodtruck;
 

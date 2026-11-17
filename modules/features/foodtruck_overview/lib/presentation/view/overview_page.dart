@@ -1,14 +1,14 @@
 import 'package:core/core.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../presentation.dart';
 import 'overview_view.dart';
 
 class OverviewPage extends StatelessWidget {
   OverviewPage({
-    Key? key,
+    super.key,
     required this.onItemTap,
-  }) : super(key: key);
+  });
 
   final FoodtruckzRepository repository = FoodtruckzRepositoryImpl();
   final Function(Foodtruck) onItemTap;

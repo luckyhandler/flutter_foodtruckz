@@ -2,17 +2,17 @@
 
 part of 'foodtruckz_service.dart';
 
+// dart format off
+
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: type=lint
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main,avoid_redundant_argument_values
 
 class _FoodtruckzService implements FoodtruckzService {
-  _FoodtruckzService(
-    this._dio, {
-    this.baseUrl,
-  }) {
+  _FoodtruckzService(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://www.craftplaces-business.com/api/';
   }
 
@@ -20,15 +20,17 @@ class _FoodtruckzService implements FoodtruckzService {
 
   String? baseUrl;
 
+  final ParseErrorLogger? errorLogger;
+
   @override
   Future<Foodtruckz> getFoodtruckz({
-    required auth,
-    required longitude,
-    required latitude,
-    rd = "10",
-    version = "2",
+    required String auth,
+    required double longitude,
+    required double latitude,
+    String rd = "10",
+    String version = "2",
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'longitude': longitude,
       r'latitude': latitude,
@@ -37,22 +39,26 @@ class _FoodtruckzService implements FoodtruckzService {
     };
     final _headers = <String, dynamic>{r'Authorization': auth};
     _headers.removeWhere((k, v) => v == null);
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<Foodtruckz>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              'locations/getTours.json',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = Foodtruckz.fromJson(_result.data!);
-    return value;
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<Foodtruckz>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            'locations/getTours.json',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late Foodtruckz _value;
+    try {
+      _value = Foodtruckz.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
@@ -67,4 +73,20 @@ class _FoodtruckzService implements FoodtruckzService {
     }
     return requestOptions;
   }
+
+  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
+  }
 }
+
+// dart format on

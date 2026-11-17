@@ -19,7 +19,7 @@ class OperatorsItem {
     this.impressions,
     this.colors,
     this.premium,
-    this.name_url,
+    this.nameUrl,
   });
 
   factory OperatorsItem.fromJson(Map<String, dynamic> json) =>
@@ -37,7 +37,8 @@ class OperatorsItem {
   final List<String>? impressions;
   final Colors? colors;
   final bool? premium;
-  final String? name_url;
+  @JsonKey(name: 'name_url')
+  final String? nameUrl;
 
   Map<String, dynamic> toJson() => _$OperatorsItemToJson(this);
 }

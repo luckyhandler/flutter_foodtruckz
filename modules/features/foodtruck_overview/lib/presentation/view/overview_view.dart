@@ -1,5 +1,5 @@
 import 'package:core/core.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../presentation.dart';
 import 'error_view.dart';
@@ -7,10 +7,10 @@ import 'success_view.dart';
 
 class OverviewView extends StatelessWidget {
   const OverviewView({
-    Key? key,
+    super.key,
     required this.location,
     required this.onItemTap,
-  }) : super(key: key);
+  });
 
   final LocationData? location;
   final Function(Foodtruck) onItemTap;
