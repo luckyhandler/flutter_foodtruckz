@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:foodtruck_details/foodtruck_details.dart';
 import 'package:foodtruck_overview/foodtruck_overview.dart';
 

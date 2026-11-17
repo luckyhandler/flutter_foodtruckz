@@ -24,7 +24,6 @@ OperatorsItem _$OperatorsItemFromJson(Map<String, dynamic> json) =>
           ? null
           : Colors.fromJson(json['colors'] as Map<String, dynamic>),
       premium: json['premium'] as bool?,
-      name_url: json['name_url'] as String?,
     );
 
 Map<String, dynamic> _$OperatorsItemToJson(OperatorsItem instance) =>
@@ -41,5 +40,4 @@ Map<String, dynamic> _$OperatorsItemToJson(OperatorsItem instance) =>
       'impressions': instance.impressions,
       'colors': instance.colors,
       'premium': instance.premium,
-      'name_url': instance.name_url,
     };

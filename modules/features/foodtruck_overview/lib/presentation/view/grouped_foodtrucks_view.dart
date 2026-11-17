@@ -1,12 +1,12 @@
 import 'package:core/core.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class GroupedFoodtrucksView extends StatelessWidget {
   const GroupedFoodtrucksView({
-    Key? key,
+    super.key,
     required this.foodtrucksByDay,
     required this.onItemTap,
-  }) : super(key: key);
+  });
 
   final Map<DateTime, List<Foodtruck>> foodtrucksByDay;
   final Function(Foodtruck) onItemTap;
